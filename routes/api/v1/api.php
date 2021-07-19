@@ -19,7 +19,15 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::prefix('/user')->group(function(){
-    Route::post('login', 'App\Http\Controllers\Api\V1\AuthController@login');
+    Route::post('login', [App\Http\Controllers\Api\V1\AuthController::class, 'login']);
     Route::post('register', 'App\Http\Controllers\Api\V1\AuthController@register');
+});
+
+Route::middleware('auth:api')->group(function () {
     Route::post('logout', 'App\Http\Controllers\Api\V1\AuthController@logout');
+
+    Route::get('/posts', function () {
+        $response = ['message' => 'Posts Page'];
+        return response($response, 200);
+    });
 });
