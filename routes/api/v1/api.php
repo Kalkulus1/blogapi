@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::prefix('/user')->group(function(){
+Route::middleware(['cors', 'json.response'])->group(function () {
     Route::post('login', [App\Http\Controllers\Api\V1\AuthController::class, 'login']);
     Route::post('register', 'App\Http\Controllers\Api\V1\AuthController@register');
 });
